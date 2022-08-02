@@ -1,0 +1,12 @@
+[submodule "wfcroot"]
+	path = wfcroot
+	url = git@gitlab.mamba.ru:cpp/wfcroot.git
+[submodule "wfc_btp"]
+	path = wfc_btp
+	url = git@gitlab.mamba.ru:cpp/wfc_btp.git
+[submodule "configurations"]
+	path = configurations
+	url = git@gitlab.mamba.ru:cpp/configurations.git
+[submodule "facebook-rocksdb"]
+	path = facebook-rocksdb
+	url = git@gitlab.mamba.ru:cpp/facebook-rocksdb.git

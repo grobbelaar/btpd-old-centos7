@@ -12,5 +12,4 @@ services:
       - "38001:38001"
       - "38001:38001/udp"
     volumes:
-      - ./logs/btpd:/logs
       - ./storage:/storage
