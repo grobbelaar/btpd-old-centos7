@@ -1,0 +1,82 @@
+{                                                                                                                                                                       
+    "rdbs1": {                                                                                                                                                          
+        "host": "10.5.4.100",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs10": {                                                                                                                                                         
+        "host": "10.5.4.109",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs11": {                                                                                                                                                         
+        "host": "10.5.4.110",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs12": {                                                                                                                                                         
+        "host": "10.5.4.111",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs13": {                                                                                                                                                         
+        "host": "10.5.4.112",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs14": {                                                                                                                                                         
+        "host": "10.5.4.113",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs15": {                                                                                                                                                         
+        "host": "10.5.4.114",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true                                                                                                                                                  
+    },                                                                                                                                                                  
+    "rdbs16": {                                                                                                                                                         
+        "host": "10.5.4.115",                                                                                                                                           
+        "port": 3306,                                                                                                                                                   
+        "status": true
+    },
+    "rdbs2": {
+        "host": "10.5.4.101",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs3": {
+        "host": "10.5.4.102",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs4": {
+        "host": "10.5.4.103",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs5": {
+        "host": "10.5.4.104",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs6": {
+        "host": "10.5.4.105",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs7": {
+        "host": "10.5.4.106",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs8": {
+        "host": "10.5.4.107",
+        "port": 3306,
+        "status": true
+    },
+    "rdbs9": {
+        "host": "10.5.4.108",
+        "port": 3306,
+        "status": true
+    }
+}

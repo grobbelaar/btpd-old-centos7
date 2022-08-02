@@ -1,0 +1,13 @@
+
+set( SUITE_LIST
+  delayed_queue_suite.cpp
+  asio_queue_suite.cpp
+  thread_pool_suite.cpp
+  timer_manager_suite.cpp
+  workflow_suite.cpp
+)
+
+add_executable( workflow_test ${FAS_TESTING_CPP} workflow_test.cpp ${SUITE_LIST} )
+target_link_libraries(workflow_test wflow )
+add_test(NAME workflow_test COMMAND workflow_test WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
+add_test(NAME workflow_test-memcheck COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/memcheck.sh ${CMAKE_CURRENT_BINARY_DIR}/workflow_test WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )

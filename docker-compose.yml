@@ -1,0 +1,16 @@
+services:
+  btp-daemon:
+    platform: linux/amd64
+    build: daemon
+    platform: linux/amd64
+    ports:
+      - "37000:37000"
+      - "37001:37001"
+      - "37002:37002"
+      - "37003:37003"
+      - "37004:37004"
+      - "38001:38001"
+      - "38001:38001/udp"
+    volumes:
+      - ./logs/btpd:/logs
+      - ./storage:/storage

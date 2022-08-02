@@ -1,0 +1,111 @@
+#include "calc/calc1.hpp"
+#include "calc/api/plus_json.hpp"
+#include "calc/api/minus_json.hpp"
+#include "calc/api/multiplies_json.hpp"
+#include "calc/api/divides_json.hpp"
+
+#include <wjrpc/errors/error_json.hpp>
+#include <wjrpc/incoming/incoming_holder.hpp>
+#include <wjrpc/outgoing/outgoing_holder.hpp>
+#include <wjrpc/outgoing/outgoing_result.hpp>
+#include <wjrpc/outgoing/outgoing_result_json.hpp>
+#include <wjrpc/outgoing/outgoing_error.hpp>
+#include <wjrpc/outgoing/outgoing_error_json.hpp>
+#include <wjrpc/memory.hpp>
+#include <iostream>
+
+template<typename E>
+void make_error(const wjrpc::incoming_holder& inholder, std::string& out)
+{
+  typedef wjrpc::outgoing_error<wjrpc::error> common_error;
+  common_error err;
+  err.error = std::make_unique<E>();
+  if ( inholder.has_id() )
+  {
+    auto id = inholder.raw_id();
+    err.id = std::make_unique<wjrpc::data_type>(id.first, id.second);
+  }
+
+  typedef wjrpc::outgoing_error_json<wjrpc::error_json> error_json;
+  error_json::serializer()(err, std::back_inserter(out));
+}
+
+template<typename ResJ>
+void send_response(std::shared_ptr<wjrpc::incoming_holder> ph, typename ResJ::target::ptr result, std::string& out)
+{
+  
+  typedef ResJ result_json;
+  typedef typename result_json::target result_type;
+  wjrpc::outgoing_result<result_type> resp;
+  resp.result = std::move(result);
+  auto raw_id = ph->raw_id();
+  resp.id = std::make_unique<wjrpc::data_type>( raw_id.first, raw_id.second );
+  typedef wjrpc::outgoing_result_json<result_json> response_json;
+  typename response_json::serializer()( resp, std::back_inserter( out ) );
+}
+
+int main()
+{
+  std::vector<std::string> req_list = 
+  {
+    "{\"method\":\"plus\",       \"params\":{ \"first\":2, \"second\":3  }, \"id\":1 }",
+    "{\"method\":\"minus\",      \"params\":{ \"first\":5, \"second\":10 }, \"id\":1 }",
+    "{\"method\":\"multiplies\", \"params\":{ \"first\":2, \"second\":2  }, \"id\":1 }",
+    "{\"method\":\"divides\",    \"params\":{ \"first\":9, \"second\":3  }, \"id\":1 }"
+  };
+  std::vector<std::string> res_list;
+ 
+  auto calc = std::make_shared<calc1>();
+  for ( auto& sreq : req_list )
+  {
+    res_list.push_back( std::string() );
+    std::string& out = res_list.back();
+    
+    wjrpc::incoming_holder inholder( sreq );
+    
+    wjson::json_error e;
+    inholder.parse(&e);
+    if ( e )
+    {
+      make_error<wjrpc::parse_error>( std::move(inholder), out );
+    }
+    else if ( inholder.is_request() )
+    {
+      // Есть имя метода и идентификатор вызова
+      if ( inholder.method() == "plus" )
+      {
+        // Ручная обработка
+        auto params = inholder.get_params<request::plus_json>(&e);
+        if ( !e )
+        {
+          std::shared_ptr<wjrpc::incoming_holder> ph = std::make_shared<wjrpc::incoming_holder>( std::move(inholder) );
+          calc->plus( std::move(params), std::bind( send_response<response::plus_json>, ph, std::placeholders::_1, std::ref(out)) );
+        }
+        else
+        {
+          make_error<wjrpc::invalid_params>(std::move(inholder), out );
+        }
+      }
+      // else if ( inholder.method() == "minus" ) { ... }
+      // else if ( inholder.method() == "multiplies" ) { .... }
+      // else if ( inholder.method() == "divides" ) { .... }
+      else
+      {
+        make_error<wjrpc::procedure_not_found>(std::move(inholder), out );
+      }
+    }
+    else
+    {
+      make_error<wjrpc::invalid_request>(std::move(inholder), out );
+    }
+  }
+
+  for ( size_t i =0; i != res_list.size(); ++i)
+  {
+    std::cout << req_list[i] << std::endl;
+    std::cout << res_list[i] << std::endl;
+    std::cout << std::endl;
+  }
+}
+
+

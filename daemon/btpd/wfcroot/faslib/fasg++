@@ -1,0 +1,19 @@
+#!/bin/sh
+# Usage example:
+#   export FAS_CXX=g++-3.3
+#   cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=`pwd`/../../fasg++ ..
+
+if [[ -z $FAS_CXX ]]; then
+  COMPILER=g++
+else
+  COMPILER=$FAS_CXX
+fi
+  
+
+SCRIPT_PATH=$(cd $(dirname $0) && pwd);
+
+if [ ! -d $SCRIPT_PATH/timeout ]; then
+  git clone git://github.com/pshved/timeout.git $SCRIPT_PATH/timeout
+fi;
+
+$SCRIPT_PATH/timeout/timeout -m 1048576 $COMPILER $@
