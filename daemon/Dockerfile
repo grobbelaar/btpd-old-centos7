@@ -17,7 +17,6 @@ RUN yum install -y \
 
 WORKDIR /btpd
 ADD btpd .
-RUN git clone https://github.com/facebook/rocksdb.git facebook-rocksdb
 ADD config config
 RUN cd build && make -j`nproc`
 RUN mkdir -p /storage/btp && mkdir -p /logs
