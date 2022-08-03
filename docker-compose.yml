@@ -1,8 +1,12 @@
 services:
+  centos7:
+    platform: linux/amd64
+    build: centos7
+    image: centos-for-btpd
+
   btp-daemon:
     platform: linux/amd64
-    build: daemon
-    platform: linux/amd64
+    build: btp-daemon
     ports:
       - "37000:37000"
       - "37001:37001"

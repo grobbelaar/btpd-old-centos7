@@ -1,6 +1,0 @@
-include_directories(.)
-include_directories(../wfc_btp/package)
-include_directories(../wfc_btp/libbtp)
-add_library(btpclient client.cpp gateway.cpp btpclient.cpp)
-target_link_libraries(btpclient iow wjrpc wlog wflow)
-add_subdirectory(converter)
