@@ -1,0 +1,8 @@
+107c107
+<     eopt.log_error = [](const std::string& m) { JSONRPC_LOG_ERROR( m ); m.size();};
+---
+>     /*eopt.log_error = [](const std::string& m) { JSONRPC_LOG_ERROR( m ); m.size();};
+110c110
+<     eopt.log_trace = [](const std::string& m) { JSONRPC_LOG_TRACE( m ); m.size(); };
+---
+>     eopt.log_trace = [](const std::string& m) { JSONRPC_LOG_TRACE( m ); m.size(); };*/

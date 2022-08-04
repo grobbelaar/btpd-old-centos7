@@ -1,0 +1,28 @@
+#!/bin//bash
+
+rm -rf btpd
+
+# btpd
+git clone git@gitlab.mamba.ru:cpp/btpd.git
+cd btpd
+git checkout 6034dff193788b563a680f7914f30e2247806a3f
+
+sed -i 's/github.lan/gitlab.mamba.ru/g' .gitmodules
+git submodule update --init
+
+find . -name .gitmodules -exec sed -i 's/github.lan/gitlab.mamba.ru/g' {} \;
+git submodule update --init --recursive
+
+find . -name CMakeLists.txt -exec sed -i 's/cmake_minimum_required(VERSION 3.1)/cmake_minimum_required(VERSION 2.8)/' {} \;
+
+cd wfc_btp
+git checkout 0.7.1
+
+cd ../../
+patch btpd/wfcroot/wfc/wfc/jsonrpc/engine_base.hpp engine_base.hpp.patch
+
+# rocksdb -- https://github.com/facebook/rocksdb.git
+#wget https://github.com/facebook/rocksdb/archive/refs/tags/v5.13.1.zip
+#unzip v5.13.1.zip && rm v5.13.1.zip && ln -sf rocksdb-5.13.1 facebook-rocksdb
+
+mkdir -p btpd/build

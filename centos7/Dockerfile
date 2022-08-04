@@ -9,7 +9,10 @@ RUN yum install -y \
   lz4-devel \
   libasan \
   gflags \
-  boost-devel \
+  boost boost-devel boost-system boost-datetime \
+  jemalloc jemalloc-devel \
+  libzstd libzstd-devel \
+  librt librt-devel \
   make \
   cmake \
   git \
